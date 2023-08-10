@@ -1,0 +1,67 @@
+﻿@model TekClub.Models.Club
+
+@inject UserManager<ApplicationUser> _userManager
+@{
+    ViewData["Title"] = "Creer un Club";
+    // retrieve the list of users where the user is a President is true
+    var users = _userManager.Users.Where(u => u.Président == true).ToList();
+
+
+
+
+}
+
+<h1>Creation d'un club</h1>
+
+<h4>Club</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12 text-center bg-white rounded" style="margin:auto;width:50%;">
+        <form asp-action="CreateClub" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nom" class="control-label"></label>
+                <input asp-for="Nom" class="form-control" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="TypeClub" class="control-label"></label>
+                <input asp-for="TypeClub" class="form-control" />
+                <span asp-validation-for="TypeClub" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                  <textarea asp-for="Description" class="form-control" placeholder="Entrer la description">
+                              </textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="Image" class="col-form-label"> Télécharger une Image </label>
+                <input type="file" class="form-control" id="file" name="file" placeholder="uploader une image" />
+            </div>
+            <br />
+           
+
+            <div class="form-group">
+                <label asp-for="DateCreation" class="control-label"></label>
+                <input asp-for="DateCreation" class="form-control" />
+                <span asp-validation-for="DateCreation" class="text-danger"></span>
+            </div>
+              <br />
+            <div class="form-group">
+                <input type="submit" value="Créer" class="btn btn-dark" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

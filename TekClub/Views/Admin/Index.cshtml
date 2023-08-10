@@ -1,0 +1,39 @@
+﻿
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="container-fluid">
+    <h3 class="text-center">Bienvenu Admin ! </h3>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-primary text-white">Nombre de Club</div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title">CLUB : @ViewBag.TotalClubs</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-info text-white">Nombre d'utilisateurs</div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title">Utilisateurs : @UserManager.Users.Count()</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card border-dark mb-3 " style="max-width: 18rem;">
+                <div class="card-header bg-success text-white">Nombre de Demande</div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title">Demandes :</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

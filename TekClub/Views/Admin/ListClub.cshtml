@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Club>
+
+<table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Type de Club</th>
+                <th scope="col">Nombres de Membres</th>
+                <th scope="col">Président</th>
+                <th scope="col">Date de Création</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        @foreach (var club in Model)
+        {
+            <tbody>
+                <tr>
+                    <th scope="row">@club.Id</th>
+                    <td>@club.Nom</td>
+                    <td>@club.TypeClub</td>
+                    <td> @club.Membres?.Count      
+                    </td>
+                    <td>
+                      @{
+                          var president = club.Membres?.FirstOrDefault(m => m.Président == true);
+                      }
+                        @president?.Nom @president?.Prenom
+                    
+                    </td>
+                    <td>@club.DateCreation</td>
+                    
+                    <td>
+                    <a asp-action="UpdateClub" class="btn btn-primary" asp-route-id="@club.Id"><i class="bi-pencil-square text-white"></i></a> |
+                    <a asp-action="Details" class="btn btn-secondary" asp-route-id="@club.Id"><i class="bi-eye-fill"></i></a> |
+                    <a asp-action="DeleteClub" class="btn btn-danger"  asp-route-id="@club.Id"><i class="bi-trash3-fill text-white"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        }
+</table>
