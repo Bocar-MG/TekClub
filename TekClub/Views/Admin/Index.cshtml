@@ -1,38 +1,43 @@
-﻿
+﻿@model Club
 @inject UserManager<ApplicationUser> UserManager
+@{
 
-<div class="container-fluid">
-    <h3 class="text-center">Bienvenu Admin ! </h3>
+}
+
+<div class="container-fluid" style="background: linear-gradient(45deg,#360033,#0b8793)">
+    <h3 class="text-center text-white">Bienvenu Admin ! </h3>
     <br />
     <br />
     <div class="row">
         <div class="col-sm-4">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card border-dark mb-3" style="max-width: 18rem;background: linear-gradient(45deg,#abbaab,#ffffff)">
                 <div class="card-header bg-primary text-white">Nombre de Club</div>
                 <div class="card-body text-dark">
                     <h5 class="card-title">CLUB : @ViewBag.TotalClubs</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text"> Visualiser le nombres de club sur la platforme</p>
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card border-dark mb-3" style="max-width: 18rem;background: linear-gradient(45deg,#abbaab,#ffffff)">
                 <div class="card-header bg-info text-white">Nombre d'utilisateurs</div>
                 <div class="card-body text-dark">
                     <h5 class="card-title">Utilisateurs : @UserManager.Users.Count()</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text"> Visualiser le nombres d'utilisateur sur la platforme</p>
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="card border-dark mb-3 " style="max-width: 18rem;">
-                <div class="card-header bg-success text-white">Nombre de Demande</div>
+            <div class="card border-dark mb-3" style="max-width: 18rem;background: linear-gradient(45deg,#abbaab,#ffffff)">
+                <div class="card-header bg-info text-white">Top club</div>
                 <div class="card-body text-dark">
-                    <h5 class="card-title">Demandes :</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <h5 class="card-title">Nom : @Model.Nom | <strong>Membres : @Model.Membres?.Count()</strong></h5>
+                    <p class="card-text"> Le club le plus célébre de la platforme</p>
                 </div>
             </div>
         </div>
+       
+      
     </div>
 
 </div>

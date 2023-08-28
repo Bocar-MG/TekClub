@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Club>
+@inject SignInManager<ApplicationUser> _signInManager
+@inject UserManager<ApplicationUser> _userManager
+
+@if(ViewBag.Alert != null)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.Alert
+    </div>
+}
+
+
+@foreach(var club in Model)
+{
+<div class="card text-center">
+    <div class="card-header bg-primary text-white">
+        TekClub
+    </div>
+    <div class="card-body">
+            <img class="card-img-top" src="@Url.Content("~/ClubImage/" +club.ImageUrl)" alt="Card image cap" style="width:300px;">
+        <h5 class="card-title">@club.Nom</h5>
+        <p class="card-text">@club.Description.</p>
+            @if (_signInManager.IsSignedIn(User) && (User.IsInRole("Membre") || User.IsInRole("Manager") || User.IsInRole("Président")))
+        {
+                var user = _userManager.GetUserAsync(User).Result;
+
+                <a href="#" class="btn btn-success btn-lg disabled" role="button" aria-disabled="true">Vous etes déja dans un club</a>
+            
+        }
+        else if(_signInManager.IsSignedIn(User))
+        {
+                <a class="btn btn-primary" asp-action="RejointClub" asp-controller="Membre" asp-route-id="@club.Id">Rejoindre ce club</a>
+            }
+            else
+            {
+                <a href="#" class="btn btn-primary btn-lg disabled" role="button" aria-disabled="true">Connectez-vous pour rejoindre ce club</a>
+            }
+        </div>
+    <div class="card-footer text-muted">
+            President : @{
+                var president = club.Membres?.FirstOrDefault(m => m.Président == true);
+                
+            }
+            @president?.Nom @president?.Prenom
+            
+    </div>
+</div>
+<br />
+<br />
+}

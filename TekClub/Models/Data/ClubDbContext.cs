@@ -10,5 +10,7 @@ namespace TekClub.Models.Data
         }
 
         public DbSet<Club> Clubs { get; set; }
+        public DbSet<Activité> Activités { get; set; }
+        public DbSet<Evenement> Evenements { get; set; }
     }
 }

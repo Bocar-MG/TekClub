@@ -1,0 +1,25 @@
+﻿@model Club
+
+<div class="text-center">
+    <h1>Details</h1>
+    
+    <p class="text-secondary">Nom du Club:</p>
+    <h5>@Model.Nom</h5>
+
+    <p class="text-secondary">Président:</p>
+    <h5>@ViewBag.President.Nom @ViewBag.President.Prenom</h5>
+
+    <p class="text-secondary">Type de Club:</p>
+    <h5>@Model.TypeClub</h5>
+
+    <p class ="text-secondary">Description:</p>
+    <h5>@Model.Description</h5>
+
+    <p class="text-secondary">Date de Création:</p>
+    <h5>@Model.DateCreation</h5>
+
+    <img src="@Url.Content("~/ClubImage/" +Model.ImageUrl)" alt="Image" style="width:200px;" />
+
+</div>
+
+

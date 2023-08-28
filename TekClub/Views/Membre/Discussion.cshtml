@@ -1,0 +1,48 @@
+﻿@inject UserManager<ApplicationUser> _userManger;
+
+@{
+    var user = _userManger.GetUserAsync(User).Result;
+    
+}
+
+
+
+<div class="container-fluid">
+    <h2 class="text-center">Salon de discussion TekClub</h2>
+    <br />
+    <div class="border border-dark rounded text-white" style="height:200px;background: linear-gradient(45deg,#2b5876,#4e4376)">
+        <ul id="discussion"></ul>
+
+    </div>
+    <br />
+    <div class="container-fluid">
+        <input readonly type="text" id="displayname" value="@user.Nom" class="form-control" />
+        <br />
+        <textarea type="text" id="message" class="form-control" placeholder="Ecriver votre message ici">
+
+    </textarea>
+
+
+
+        <br />
+        <input type="button" class="btn btn-primary" id="sendmessage" value="Envoyer" />
+        <br />
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    <script src="~/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/site.js"></script>
+    
+}
+
+

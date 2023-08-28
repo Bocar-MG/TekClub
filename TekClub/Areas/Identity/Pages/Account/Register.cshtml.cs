@@ -13,10 +13,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using TekClub.Models;
@@ -31,13 +33,15 @@ namespace TekClub.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IWebHostEnvironment _env;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IWebHostEnvironment env)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -45,6 +49,7 @@ namespace TekClub.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _env = env;
         }
 
         /// <summary>
@@ -93,6 +98,11 @@ namespace TekClub.Areas.Identity.Pages.Account
             public bool Président { get; set; }
             public string Status { get; set; }
 
+           
+
+            public string ProfileImageUrl { get; set; }
+
+            
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -113,11 +123,16 @@ namespace TekClub.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-
+        
+        public SelectList Specialités { get; set; }
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            IEnumerable<string> liste =  new List<string> { "Classe préparatoire(CPI)", "TIC", "Genie Logiciel", "DMWM", "Data Science", "IoT", "Sécurité et Systémes Informatiques et Réseaux" };
+
+            Specialités = new SelectList(liste.ToList());
+            
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -137,9 +152,15 @@ namespace TekClub.Areas.Identity.Pages.Account
                 user.Specialité = Input.Specialité;
                 user.Classe = Input.Classe;
                 user.PhoneNumber = Input.PhoneNumber;
-                
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                // this code does not work
+
+
+               
+               
+
+
+                    await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

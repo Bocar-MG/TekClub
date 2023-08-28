@@ -159,6 +159,38 @@ namespace TekClub.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("TekClub.Models.Activité", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ClubId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DateDebut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeActivité")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClubId");
+
+                    b.ToTable("Activités");
+                });
+
             modelBuilder.Entity("TekClub.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -187,6 +219,9 @@ namespace TekClub.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("ImagePic")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -239,6 +274,9 @@ namespace TekClub.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("clubTemp")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClubId");
@@ -282,6 +320,39 @@ namespace TekClub.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clubs");
+                });
+
+            modelBuilder.Entity("TekClub.Models.Evenement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ClubId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateDebut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descripton")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeEvenement")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClubId");
+
+                    b.ToTable("Evenements");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -335,6 +406,15 @@ namespace TekClub.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TekClub.Models.Activité", b =>
+                {
+                    b.HasOne("TekClub.Models.Club", "Club")
+                        .WithMany("Activités")
+                        .HasForeignKey("ClubId");
+
+                    b.Navigation("Club");
+                });
+
             modelBuilder.Entity("TekClub.Models.ApplicationUser", b =>
                 {
                     b.HasOne("TekClub.Models.Club", "Club")
@@ -344,8 +424,21 @@ namespace TekClub.Migrations
                     b.Navigation("Club");
                 });
 
+            modelBuilder.Entity("TekClub.Models.Evenement", b =>
+                {
+                    b.HasOne("TekClub.Models.Club", "Club")
+                        .WithMany("Evenements")
+                        .HasForeignKey("ClubId");
+
+                    b.Navigation("Club");
+                });
+
             modelBuilder.Entity("TekClub.Models.Club", b =>
                 {
+                    b.Navigation("Activités");
+
+                    b.Navigation("Evenements");
+
                     b.Navigation("Membres");
                 });
 #pragma warning restore 612, 618

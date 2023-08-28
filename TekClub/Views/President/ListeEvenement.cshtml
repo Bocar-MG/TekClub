@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Evenement>
+@inject UserManager<ApplicationUser> _userManger;
+
+@{
+    var connected = _userManger.GetUserAsync(User).Result.Id;
+    var UserClub = new Club();
+    foreach (var user in ViewBag.UserList)
+    {
+        if (user.Id == connected)
+        {
+            UserClub = user.Club;
+        }
+    }
+
+}
+
+
+
+<a asp-action="CreateEvenement" class="btn btn-success"><i class="bi-plus-circle-fill text-white"></i></a>
+<br />
+<br />
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Type d'evenement</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Date de fin</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    @foreach (var evenement in Model)
+    {
+        if (evenement.Club == UserClub)
+        {
+            <tbody>
+                <tr>
+                    <th scope="row">@evenement.Id</th>
+                    <td>@evenement.Name</td>
+                    <td>@evenement.TypeEvenement</td>
+                    <td>
+                        @evenement.Descripton
+
+                    </td>
+                    <td>
+                        @evenement.DateDebut
+
+                    </td>
+                    <td>@evenement.DateFin
+
+                    <td>
+                        <a asp-action="EditEvenement" class="btn btn-primary" asp-route-id="@evenement.Id"><i class="bi-pencil-square text-white"></i></a> |
+                        <a asp-action="DetailsEvenement" class="btn btn-secondary" asp-route-id="@evenement.Id"><i class="bi-eye-fill"></i></a> |
+                        <a asp-action="DeleteEvenement" class="btn btn-danger" asp-route-id="@evenement.Id"><i class="bi-trash3-fill text-white"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        }
+
+    }
+</table>
+

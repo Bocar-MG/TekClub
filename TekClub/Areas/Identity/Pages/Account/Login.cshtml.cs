@@ -124,6 +124,15 @@ namespace TekClub.Areas.Identity.Pages.Account
                     {
                         return Redirect("~/Admin");
                     }
+                    else if(roles.Contains("Président"))
+                    {
+                        return Redirect("~/President");
+                    }
+                    else if(roles.Contains("Membre"))
+                    {
+                        return Redirect("~/Membre");
+                    }
+
 
                     return LocalRedirect(returnUrl);
       

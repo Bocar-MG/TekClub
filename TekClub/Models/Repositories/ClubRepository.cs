@@ -1,4 +1,6 @@
-﻿using TekClub.Models.Data;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
+using TekClub.Models.Data;
 using TekClub.Models.IRespositories;
 
 namespace TekClub.Models.Repositories
@@ -46,7 +48,7 @@ namespace TekClub.Models.Repositories
 
         public IEnumerable<Club> FindAll()
         {
-            var clubs = _dbContext.Clubs.ToList();
+            var clubs = _dbContext.Clubs.Include(c => c.Membres).ToList();
             return clubs;
 
         }
@@ -55,6 +57,19 @@ namespace TekClub.Models.Repositories
         {
            var club = _dbContext.Clubs.Find(id);
             return club;
+        }
+
+       
+
+        public IEnumerable<Club> GetClubWithActivités()
+        {
+            var clubs = _dbContext.Clubs.Include(u => u.Activités).ToList();
+            return clubs;
+        }
+
+        public IEnumerable<Club> GetClubWithMembers()
+        {
+            return _dbContext.Clubs.Include(u => u.Membres);
         }
 
         public  Club Update(Club club, IFormFile formFile)
@@ -72,6 +87,7 @@ namespace TekClub.Models.Repositories
 
 
                 }
+             
                 club.ImageUrl = NomFichier;
                 _dbContext.Clubs.Update(club);
                 _dbContext.SaveChanges();

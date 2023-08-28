@@ -6,5 +6,23 @@
       "library": "bootstrap-icons@1.10.5",
       "destination": "wwwroot/lib/bootstrap-icons/"
     }
-  ]
+  ,
+{
+  "provider": "unpkg",
+  "library": "@microsoft/signalr@latest",
+  "destination": "wwwroot/js/signalr"
+}
+,
+{
+  "provider": "unpkg",
+  "library": "@microsoft/signalr@latest",
+  "destination": "wwwroot/lib/microsoft/signalr/"
+}
+,
+{
+  "provider": "unpkg",
+  "library": "@microsoft/signalr@latest",
+  "destination": "wwwroot/microsoft/signalr/"
+}
+]
 }

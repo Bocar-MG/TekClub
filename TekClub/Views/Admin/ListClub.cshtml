@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<Club>
 
-<table class="table">
+<a asp-action="CreateClub" class="btn btn-success"><i class="bi-plus-circle-fill text-white"></i></a>
+<br />
+<br />
+<table class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -32,7 +35,7 @@
                     
                     <td>
                     <a asp-action="UpdateClub" class="btn btn-primary" asp-route-id="@club.Id"><i class="bi-pencil-square text-white"></i></a> |
-                    <a asp-action="Details" class="btn btn-secondary" asp-route-id="@club.Id"><i class="bi-eye-fill"></i></a> |
+                    <a asp-action="DetailsClub" class="btn btn-secondary" asp-route-id="@club.Id"><i class="bi-eye-fill"></i></a> |
                     <a asp-action="DeleteClub" class="btn btn-danger"  asp-route-id="@club.Id"><i class="bi-trash3-fill text-white"></i></a>
                     </td>
                 </tr>

@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TekClub.Models;
 using TekClub.Models.IRespositories;
 
 namespace TekClub.Controllers
 {
-    [Authorize(Roles = "Manager")]
+   
     public class AdminController : Controller
     {
         private readonly IClubRepository _clubRepository;
@@ -19,16 +20,31 @@ namespace TekClub.Controllers
             _userManager = userManager;
              
         }
+       
         public IActionResult Index()
         {
             // total des clubs
             ViewBag.TotalClubs = _clubRepository.FindAll().Count();
-            return View();
+            // je veux le club qui a le plus de membres
+            var clubs = _clubRepository.FindAll();
+            int max = 0;
+            Club clubMax = null;
+            foreach (var club in clubs)
+            {
+                if (club.Membres?.Count > max)
+                {
+                    max = club.Membres.Count;
+                    clubMax = club;
+                }
+            }
+            return View(clubMax);
         }
 
        
-        public IActionResult CreateClub(Guid id)
+        public IActionResult CreateClub()
         {
+          
+
             return View();
         }
 
@@ -38,7 +54,9 @@ namespace TekClub.Controllers
         {
              if(ModelState.IsValid)
             {
-                
+               var usertemp = _userManager.FindByIdAsync(club.MembreAjouter.ToString()).Result;
+                usertemp.Club = club;
+                club.Membres.Add(usertemp);
                 _clubRepository.Create(club,file);
                 return RedirectToAction("Index");
             }
@@ -57,6 +75,7 @@ namespace TekClub.Controllers
         {
             if (ModelState.IsValid)
             {
+             
                 _clubRepository.Update(club,file);
                 return RedirectToAction("Index");
             }
@@ -106,7 +125,8 @@ namespace TekClub.Controllers
         }
         public IActionResult ListUser()
         {
-            var users = _userManager.Users;
+            var users = _userManager.Users.Include(user => user.Club);
+
             return View(users);
         }
         public IActionResult Accepter(Guid id)
@@ -125,5 +145,27 @@ namespace TekClub.Controllers
             return RedirectToAction("ListUser");
         }
 
+        public IActionResult DetailsClub(Guid id)
+        {
+            var pres = _userManager.Users.Where(u => u.Club.Id == id && u.Président == true).FirstOrDefault();
+            ViewBag.President = pres;
+
+            var club = _clubRepository.GetById(id);
+            return View(club);
+        }
+        public IActionResult VoirClub(Guid id)
+        {
+            var club = _clubRepository.GetById(id);
+
+            return View(club);
+
+        }
+
+        [AllowAnonymous]
+        public IActionResult Clublist()
+        {
+            var clubs = _clubRepository.FindAll();
+            return View(clubs);
+        }
     }
 }

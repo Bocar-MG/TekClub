@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Activité>
+
+@inject UserManager<ApplicationUser> _userManager
+
+@{
+    var user = _userManager.GetUserAsync(User).Result;
+
+}
+
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+           
+            <th scope="col">Nom</th>
+            <th scope="col">Type d'Activité</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Date de fin</th>
+           
+        </tr>
+    </thead>
+    @foreach (var activité in Model)
+    {
+         if(user.clubTemp != null && activité.Club?.Id == Guid.Parse(user.clubTemp))
+        {
+            <tbody>
+                <tr>
+                    
+                    <td>@activité.Nom</td>
+                    <td>@activité.TypeActivité</td>
+                    <td>
+                        @activité.Description
+
+                    </td>
+                    <td>
+                      @activité.DateDebut
+
+                    </td>
+                    <td>@activité.DateFin</td>
+                     </tr>
+
+</tbody>
+        }
+    }
+</table>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Activité>
+@inject UserManager<ApplicationUser> _userManger;
+
+@{
+    var connected = _userManger.GetUserAsync(User).Result.Id;
+    var UserClub = new Club();
+    foreach(var user in ViewBag.UserList)
+    {
+        if(user.Id == connected)
+        {
+            UserClub = user.Club;
+        }
+    }
+
+}
+
+
+
+<a asp-action="CreateActivité" class="btn btn-success"><i class="bi-plus-circle-fill text-white"></i></a>
+<br />
+<br />
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Type d'Activité</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Date de fin</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    @foreach (var activité in Model)
+    {
+         if(activité.Club == UserClub)
+        {
+            <tbody>
+                <tr>
+                    <th scope="row">@activité.Id</th>
+                    <td>@activité.Nom</td>
+                    <td>@activité.TypeActivité</td>
+                    <td>
+                        @activité.Description
+
+                    </td>
+                    <td>
+                      @activité.DateDebut
+
+                    </td>
+                    <td>@activité.DateFin
+
+                    <td>
+                        <a asp-action="EditActivité" class="btn btn-primary" asp-route-id="@activité.Id"><i class="bi-pencil-square text-white"></i></a> |
+                        <a asp-action="DetailsActivité" class="btn btn-secondary" asp-route-id="@activité.Id"><i class="bi-eye-fill"></i></a> |
+                        <a asp-action="DeleteActivité" class="btn btn-danger" asp-route-id="@activité.Id"><i class="bi-trash3-fill text-white"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        }
+       
+    }
+</table>

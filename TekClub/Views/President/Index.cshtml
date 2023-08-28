@@ -1,0 +1,60 @@
+﻿@inject UserManager<ApplicationUser> UserManager
+
+@model IEnumerable<Club>
+
+@inject UserManager<ApplicationUser> _userManager
+
+@{
+    var Nombres = 0;
+    foreach(var club in Model)
+    {
+        if(club.Id == ViewBag.UserClub)
+        {
+            Nombres = club.Membres.Count();
+        }
+    }
+
+}
+
+
+
+
+
+
+<div class="container-fluid">
+    <h3 class="text-center">Bienvenu Président ! </h3>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-primary text-white">Nombre de Membres</div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title">Nombre de Membres : @Nombres </h5>
+                    <p class="card-text"> Vous verrez ici le nombres de membres de votre club.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-info text-white">Nombre d'utilisateurs</div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title">Utilisateurs</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card border-dark mb-3 " style="max-width: 18rem;">
+                <div class="card-header bg-success text-white">Nombre de Demande</div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title">Demandes :</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

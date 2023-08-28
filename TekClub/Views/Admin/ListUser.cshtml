@@ -1,11 +1,12 @@
 ﻿@model IEnumerable<ApplicationUser>
 
 
-    
-        
-    
-    
-  
+
+
+
+<a asp-action="CreateClub" class="btn btn-success text-white"><i class="bi-plus-circle-fill text-success"></i></a>
+  <br />
+  <br />
         <table class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
@@ -39,13 +40,19 @@
                        <strong class="text-success">Demande Accépté</strong>
                        <i class="bi-check2-circle"></i>
                     }
+                    else if (user.Status != null && user.clubTemp != null)
+                    {
+                        <strong class="text-primary">Membre d'un club</strong>
+                        <i class="bi-people"></i>
+                    }
                     else if(user.Status != null)
                     {
                         <strong class="text-danger">@user.Status</strong>
                         <i class="bi-x-circle"></i>
 
-                         
+
                     }
+                   
                 </td>
                 <td>
                     @if (user.Président)
@@ -71,11 +78,12 @@
                     {
                         <a asp-action="Accepter" asp-route-id="@user.Id">Accepter</a>
                     }
-                 </td>
+                  
+                </td>
                  <td>
                     @if (user.Président)
                     {
-                        <a asp-action="CreateClub" class="btn btn-success" asp-route-id="@user.Id"><i class="bi-heptagon text-white"></i></a>
+                        <a asp-action="VoirClub" class="btn btn-success" asp-route-id="@user.Club?.Id"><i class="bi-heptagon text-white"></i></a>
                     }
                   
 

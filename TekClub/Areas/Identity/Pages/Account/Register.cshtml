@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-12 text-center bg-white rounded" style="margin:auto;width:50%;">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
             <h2>Créer un compte.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -27,17 +27,20 @@
                             <label asp-for="Input.Age"></label>
                             <span asp-validation-for="Input.Age" class="text-danger"></span>
             </div>
+       
             <br />
             <div class="form-floating">
-                            <input asp-for="Input.Classe" class="form-control" autocomplete="classe" aria-required="true" />
-                            <label asp-for="Input.Classe"></label>
-                            <span asp-validation-for="Input.Classe" class="text-danger"></span>
+                           
+                <select asp-for="Input.Specialité" class="form-control" autocomplete="specialité" aria-required="true" asp-items=@Model.Specialités></select>
+                <label asp-for="Input.Specialité"></label>
+                          
+                            <span asp-validation-for="Input.Specialité" class="text-danger"></span>
             </div>
             <br />
             <div class="form-floating">
-                            <input asp-for="Input.Specialité" class="form-control" autocomplete="specialité" aria-required="true" />
-                            <label asp-for="Input.Specialité"></label>
-                            <span asp-validation-for="Input.Specialité" class="text-danger"></span>
+                <input asp-for="Input.Classe" class="form-control" autocomplete="classe" aria-required="true" />
+                <label asp-for="Input.Classe"></label>
+                <span asp-validation-for="Input.Classe" class="text-danger"></span>
             </div>
             <br />
             <div class="form-floating">
@@ -63,6 +66,9 @@
                 <label asp-for="Input.ConfirmPassword"></label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <br />
+          
+          
             <br />
             <div>
               
