@@ -6,6 +6,7 @@ using TekClub.Models.IRespositories;
 using TekClub.Models.Repositories;
 using System;
 using TekClub;
+using TekClub.Models.Emails;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddSignalR();
 builder.Services.AddScoped<IClubRepository,ClubRepository>();
 builder.Services.AddScoped<IActivité,ActivitéRepository>();
 builder.Services.AddScoped<IEvenement,EvenementRepository>();
+builder.Services.AddTransient<IMailService, MailService>();
 
 builder.Services.AddDbContext<ClubDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TekupClub")));
@@ -27,7 +29,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
   
     .AddEntityFrameworkStores<ClubDbContext>();
 
-
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
 
 var app = builder.Build();

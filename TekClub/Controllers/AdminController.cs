@@ -3,21 +3,24 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TekClub.Models;
+using TekClub.Models.Emails;
 using TekClub.Models.IRespositories;
 
 namespace TekClub.Controllers
 {
-   
+    [Authorize(Roles = "Manager")]
     public class AdminController : Controller
     {
         private readonly IClubRepository _clubRepository;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        public AdminController(IClubRepository clubRepository, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        private readonly IMailService _mailService;
+        public AdminController(IClubRepository clubRepository, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, IMailService mailService)
         {
             _clubRepository = clubRepository;
             _roleManager = roleManager;
             _userManager = userManager;
+            _mailService = mailService;
              
         }
        
@@ -136,6 +139,16 @@ namespace TekClub.Controllers
             user.Président = true;
             _userManager.AddToRoleAsync(user, "Président").Wait();
              _userManager.UpdateAsync(user);
+
+            // send email to user
+            MailData mailData = new MailData();
+            mailData.EmailToId = user.Email;
+            mailData.EmailToName = user.UserName;
+            mailData.EmailSubject = "Acceptation de votre demande";
+            mailData.EmailBody = " Félicitation ! Votre demande pour etre président a été acceptée";
+            _mailService.SendMail(mailData);
+
+
               return RedirectToAction("ListUser");
         }
         public IActionResult DeleteUser(Guid id)

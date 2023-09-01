@@ -48,7 +48,7 @@ namespace TekClub.Models.Repositories
 
         public IEnumerable<Club> FindAll()
         {
-            var clubs = _dbContext.Clubs.Include(c => c.Membres).ToList();
+            var clubs = _dbContext.Clubs.Include(c => c.Membres).Include(c => c.Activités).Include(c => c.Evenements).ToList();
             return clubs;
 
         }

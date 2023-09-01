@@ -9,24 +9,24 @@
 @if (SignInManager.IsSignedIn(User) && User.IsInRole("Manager"))
 {
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Index" style="background-color:#046380;border-left:dashed;"><i class="bi-house-gear"> </i>Dashboard</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Index" style="background-color:black;border-left:dashed;"><i class="bi-house-gear"> </i>Dashboard</a>
         </li>
    
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="ListClub" style="background-color:#046380;border-left:dashed;"><i class="bi-heptagon"></i> Gestion Club</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="ListClub" style="background-color:black;border-left:dashed;"><i class="bi-heptagon"></i> Gestion Club</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="ListRole" style="background-color:#046380;border-left:dashed;"><i class="bi-r-circle"></i> Gestion Roles</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="ListRole" style="background-color:black;border-left:dashed;"><i class="bi-r-circle"></i> Gestion Roles</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="ListUser" style="background-color:#046380; border-left:dashed;"><i class="bi-people"></i> Gestion Utilisateurs</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="ListUser" style="background-color:black; border-left:dashed;"><i class="bi-people"></i> Gestion Utilisateurs</a>
         </li>
         <li class="nav-item">
-            <a id="manage" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> @UserManager.GetUserName(User)!</a>
+            <a id="manage" class="nav-link text-black" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> @UserManager.GetUserName(User)!</a>
         </li>
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-white">Deconnexion</button>
+                <button id="logout" type="submit" class="nav-link btn btn-link text-white" style="background-color:brown; border-left:dashed;"> <i class="bi-box-arrow-in-right"></i>Deconnexion</button>
             </form>
         </li>
        
@@ -40,27 +40,28 @@
             UserProfilePic = "default.jpg";
         }
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="President" asp-action="Index" style="background-color:#046380;border-left:dashed;"><i class="bi-house-gear"> </i>Dashboard</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="President" asp-action="Index" style="background-color:black;border-left:dashed;"><i class="bi-house-gear"> </i>Dashboard</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="President" asp-action="ListMembres" style="background-color:#046380; border-left:dashed;"><i class="bi-people"></i> Gestion Membres</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="President" asp-action="ListMembres" style="background-color:black; border-left:dashed;"><i class="bi-people"></i> Gestion Membres</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="President" asp-action="ListeActivité" style="background-color:#046380; border-left:dashed;"><i class="bi-person-workspace"></i> Gestion Des Activités</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="President" asp-action="ListeActivité" style="background-color:black; border-left:dashed;"><i class="bi-person-workspace"></i> Gestion Des Activités</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="President" asp-action="ListeEvenement" style="background-color:#046380; border-left:dashed;"><i class="bi-calendar-event"></i> Gestion des Evenements</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="President" asp-action="ListeEvenement" style="background-color:black; border-left:dashed;"><i class="bi-calendar-event"></i> Gestion des Evenements</a>
         </li>
         <li class="nav-item">
-           
-            <a id="manage" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="@Url.Content("~/Profilepic/" +UserProfilePic)" />  @UserManager.GetUserName(User)!</a>
+            <a class="nav-link text-white" asp-area="" title="Discussions" asp-controller="President" asp-action="Discussion" style="background-color:green; border-left:dashed;"><i class="bi-chat-dots-fill"></i> Discussion</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="President" asp-action="Discussion" style="background-color:brown; border-left:dashed;"><i class="bi-chat-dots-fill"></i> Discussions </a>
+
+            <a id="manage" class="nav-link text-black" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="@Url.Content("~/Profilepic/" +UserProfilePic)" /> @UserManager.GetUserAsync(User).Result.Prenom</a>
         </li>
+       
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-white">Deconnexion</button>
+                <button id="logout" type="submit" class="nav-link btn btn-link text-white" style="background-color:brown; border-left:dashed;"> <i class="bi-box-arrow-in-right"></i>Deconnexion</button>
             </form>
         </li>
     }
@@ -76,21 +77,22 @@
             <a class="nav-link text-white" asp-area="" asp-controller="Membre" asp-action="Index"><i class="bi-house-gear"> </i>Profile</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Membre" asp-action="ConsulterActivité" style="background-color:#046380;border-left:dashed;"><i class=""></i> Consulter les Activités </a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Membre" asp-action="ConsulterActivité" style="background-color:black;border-left:dashed;"><i class=""></i> Consulter les Activités </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Membre" asp-action="ConsulterEvenement" style="background-color:#046380;border-left:dashed;"><i class=""></i> Consulter les Evenenments </a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Membre" asp-action="ConsulterEvenement" style="background-color:black;border-left:dashed;"><i class=""></i> Consulter les Evenenments </a>
         </li>
         <li class="nav-item">
-            <a id="manage" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="@Url.Content("~/Profilepic/" +UserProfilePic)" />  @UserManager.GetUserName(User)!</a>
+            <a class="nav-link text-white" asp-area="" title="Discussions" asp-controller="Membre" asp-action="Discussion" style="background-color:green; border-left:dashed;"><i class="bi-chat-dots-fill"></i> Discussion</a>
+        </li>
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-black" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="@Url.Content("~/Profilepic/" +UserProfilePic)" />  @UserManager.GetUserAsync(User).Result.Prenom</a>
         </li>
        
-        <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Membre" asp-action="Discussion" style="background-color:brown; border-left:dashed;"><i class="bi-chat-dots-fill"></i> Discussions </a>
-        </li>
+       
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-white">Deconnexion</button>
+                <button id="logout" type="submit" class="nav-link btn btn-link text-white" style="background-color:brown; border-left:dashed;"> <i class="bi-box-arrow-in-right"></i>Deconnexion</button>
             </form>
         </li>
     }
@@ -104,24 +106,22 @@
         }
 
         <li class="nav-item">
-            <a id="manage" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="@Url.Content("~/Profilepic/" +UserProfilePic)" />  @UserManager.GetUserName(User)!</a>
+            <a id="manage" class="nav-link text-black" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="@Url.Content("~/Profilepic/" +UserProfilePic)" /> @UserManager.GetUserAsync(User).Result.Prenom</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="President" asp-action="ListeEvenement" style="background-color:brown; border-left:dashed;"><i class=""></i> Méssagerie </a>
-        </li>
+       
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-white">Deconnexion</button>
+                <button id="logout" type="submit" class="nav-link btn btn-link text-white" style="background-color:brown; border-left:dashed;"> <i class="bi-box-arrow-in-right"></i>Deconnexion</button>
             </form>
         </li>
     }
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-white" id="register" asp-area="Identity" asp-page="/Account/Register">S'inscrire</a>
+        <a class="nav-link text-black" id="register" asp-area="Identity" asp-page="/Account/Register">S'inscrire</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-white" id="login" asp-area="Identity" asp-page="/Account/Login">Se connecter</a>
+        <a class="nav-link text-black" id="login" asp-area="Identity" asp-page="/Account/Login">Se connecter</a>
     </li>
 }
 </ul>
